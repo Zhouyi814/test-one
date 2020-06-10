@@ -1,0 +1,1795 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shen.autocoding.engine.mapper.SysModuleMapper">
+  <resultMap id="BaseResultMap" type="com.shen.autocoding.engine.model.SysModule">
+    <id column="module_id" jdbcType="VARCHAR" property="moduleId" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="full_index" jdbcType="VARCHAR" property="fullIndex" />
+    <result column="included_modules" jdbcType="VARCHAR" property="includedModules" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_type" jdbcType="CHAR" property="moduleType" />
+    <result column="module_level" jdbcType="CHAR" property="moduleLevel" />
+    <result column="is_leaf" jdbcType="CHAR" property="isLeaf" />
+    <result column="module_icon" jdbcType="VARCHAR" property="moduleIcon" />
+    <result column="module_order" jdbcType="INTEGER" property="moduleOrder" />
+    <result column="module_remark" jdbcType="VARCHAR" property="moduleRemark" />
+    <result column="module_url" jdbcType="VARCHAR" property="moduleUrl" />
+    <result column="query_fields" jdbcType="VARCHAR" property="queryFields" />
+    <result column="operation_options" jdbcType="VARCHAR" property="operationOptions" />
+    <result column="join_tables" jdbcType="VARCHAR" property="joinTables" />
+    <result column="join_options" jdbcType="VARCHAR" property="joinOptions" />
+    <result column="del_flg" jdbcType="CHAR" property="delFlg" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    <result column="show_fields" jdbcType="LONGVARCHAR" property="showFields" />
+    <result column="hidden_fields" jdbcType="LONGVARCHAR" property="hiddenFields" />
+    <result column="add_fields" jdbcType="LONGVARCHAR" property="addFields" />
+    <result column="modifiy_fields" jdbcType="LONGVARCHAR" property="modifiyFields" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    module_id, parent_id, full_index, included_modules, module_name, module_type, module_level, 
+    is_leaf, module_icon, module_order, module_remark, module_url, query_fields, operation_options, 
+    join_tables, join_options, del_flg, create_date, create_by, update_date, update_by
+  </sql>
+  <sql id="Blob_Column_List">
+    show_fields, hidden_fields, add_fields, modifiy_fields
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_module
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_module
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample">
+    delete from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    insert into sys_module (module_id, parent_id, full_index, 
+      included_modules, module_name, module_type, 
+      module_level, is_leaf, module_icon, 
+      module_order, module_remark, module_url, 
+      query_fields, operation_options, join_tables, 
+      join_options, del_flg, create_date, 
+      create_by, update_date, update_by, 
+      show_fields, hidden_fields, add_fields, 
+      modifiy_fields)
+    values (#{moduleId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{fullIndex,jdbcType=VARCHAR}, 
+      #{includedModules,jdbcType=VARCHAR}, #{moduleName,jdbcType=VARCHAR}, #{moduleType,jdbcType=CHAR}, 
+      #{moduleLevel,jdbcType=CHAR}, #{isLeaf,jdbcType=CHAR}, #{moduleIcon,jdbcType=VARCHAR}, 
+      #{moduleOrder,jdbcType=INTEGER}, #{moduleRemark,jdbcType=VARCHAR}, #{moduleUrl,jdbcType=VARCHAR}, 
+      #{queryFields,jdbcType=VARCHAR}, #{operationOptions,jdbcType=VARCHAR}, #{joinTables,jdbcType=VARCHAR}, 
+      #{joinOptions,jdbcType=VARCHAR}, #{delFlg,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{showFields,jdbcType=LONGVARCHAR}, #{hiddenFields,jdbcType=LONGVARCHAR}, #{addFields,jdbcType=LONGVARCHAR}, 
+      #{modifiyFields,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    insert into sys_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="fullIndex != null">
+        full_index,
+      </if>
+      <if test="includedModules != null">
+        included_modules,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="moduleLevel != null">
+        module_level,
+      </if>
+      <if test="isLeaf != null">
+        is_leaf,
+      </if>
+      <if test="moduleIcon != null">
+        module_icon,
+      </if>
+      <if test="moduleOrder != null">
+        module_order,
+      </if>
+      <if test="moduleRemark != null">
+        module_remark,
+      </if>
+      <if test="moduleUrl != null">
+        module_url,
+      </if>
+      <if test="queryFields != null">
+        query_fields,
+      </if>
+      <if test="operationOptions != null">
+        operation_options,
+      </if>
+      <if test="joinTables != null">
+        join_tables,
+      </if>
+      <if test="joinOptions != null">
+        join_options,
+      </if>
+      <if test="delFlg != null">
+        del_flg,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="showFields != null">
+        show_fields,
+      </if>
+      <if test="hiddenFields != null">
+        hidden_fields,
+      </if>
+      <if test="addFields != null">
+        add_fields,
+      </if>
+      <if test="modifiyFields != null">
+        modifiy_fields,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullIndex != null">
+        #{fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="includedModules != null">
+        #{includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=CHAR},
+      </if>
+      <if test="moduleLevel != null">
+        #{moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLeaf != null">
+        #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="moduleIcon != null">
+        #{moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        #{moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="moduleRemark != null">
+        #{moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="queryFields != null">
+        #{queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOptions != null">
+        #{operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTables != null">
+        #{joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="joinOptions != null">
+        #{joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null">
+        #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="showFields != null">
+        #{showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddenFields != null">
+        #{hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addFields != null">
+        #{addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="modifiyFields != null">
+        #{modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultType="java.lang.Integer">
+    select count(*) from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_module
+    <set>
+      <if test="record.moduleId != null">
+        module_id = #{record.moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fullIndex != null">
+        full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.includedModules != null">
+        included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleName != null">
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleType != null">
+        module_type = #{record.moduleType,jdbcType=CHAR},
+      </if>
+      <if test="record.moduleLevel != null">
+        module_level = #{record.moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.isLeaf != null">
+        is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="record.moduleIcon != null">
+        module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleOrder != null">
+        module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleRemark != null">
+        module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleUrl != null">
+        module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.queryFields != null">
+        query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationOptions != null">
+        operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinTables != null">
+        join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinOptions != null">
+        join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlg != null">
+        del_flg = #{record.delFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showFields != null">
+        show_fields = #{record.showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.hiddenFields != null">
+        hidden_fields = #{record.hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.addFields != null">
+        add_fields = #{record.addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.modifiyFields != null">
+        modifiy_fields = #{record.modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sys_module
+    set module_id = #{record.moduleId,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=CHAR},
+      module_level = #{record.moduleLevel,jdbcType=CHAR},
+      is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      del_flg = #{record.delFlg,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      show_fields = #{record.showFields,jdbcType=LONGVARCHAR},
+      hidden_fields = #{record.hiddenFields,jdbcType=LONGVARCHAR},
+      add_fields = #{record.addFields,jdbcType=LONGVARCHAR},
+      modifiy_fields = #{record.modifiyFields,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_module
+    set module_id = #{record.moduleId,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=CHAR},
+      module_level = #{record.moduleLevel,jdbcType=CHAR},
+      is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      del_flg = #{record.delFlg,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    update sys_module
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullIndex != null">
+        full_index = #{fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="includedModules != null">
+        included_modules = #{includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=CHAR},
+      </if>
+      <if test="moduleLevel != null">
+        module_level = #{moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLeaf != null">
+        is_leaf = #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="moduleIcon != null">
+        module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        module_order = #{moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="moduleRemark != null">
+        module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        module_url = #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="queryFields != null">
+        query_fields = #{queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOptions != null">
+        operation_options = #{operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTables != null">
+        join_tables = #{joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="joinOptions != null">
+        join_options = #{joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null">
+        del_flg = #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="showFields != null">
+        show_fields = #{showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddenFields != null">
+        hidden_fields = #{hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addFields != null">
+        add_fields = #{addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="modifiyFields != null">
+        modifiy_fields = #{modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    update sys_module
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      full_index = #{fullIndex,jdbcType=VARCHAR},
+      included_modules = #{includedModules,jdbcType=VARCHAR},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=CHAR},
+      module_level = #{moduleLevel,jdbcType=CHAR},
+      is_leaf = #{isLeaf,jdbcType=CHAR},
+      module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      module_order = #{moduleOrder,jdbcType=INTEGER},
+      module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      module_url = #{moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{queryFields,jdbcType=VARCHAR},
+      operation_options = #{operationOptions,jdbcType=VARCHAR},
+      join_tables = #{joinTables,jdbcType=VARCHAR},
+      join_options = #{joinOptions,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      show_fields = #{showFields,jdbcType=LONGVARCHAR},
+      hidden_fields = #{hiddenFields,jdbcType=LONGVARCHAR},
+      add_fields = #{addFields,jdbcType=LONGVARCHAR},
+      modifiy_fields = #{modifiyFields,jdbcType=LONGVARCHAR}
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shen.autocoding.engine.model.SysModule">
+    update sys_module
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      full_index = #{fullIndex,jdbcType=VARCHAR},
+      included_modules = #{includedModules,jdbcType=VARCHAR},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=CHAR},
+      module_level = #{moduleLevel,jdbcType=CHAR},
+      is_leaf = #{isLeaf,jdbcType=CHAR},
+      module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      module_order = #{moduleOrder,jdbcType=INTEGER},
+      module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      module_url = #{moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{queryFields,jdbcType=VARCHAR},
+      operation_options = #{operationOptions,jdbcType=VARCHAR},
+      join_tables = #{joinTables,jdbcType=VARCHAR},
+      join_options = #{joinOptions,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.shen.autocoding.engine.model.SysModule">
+    <id column="module_id" jdbcType="VARCHAR" property="moduleId" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="full_index" jdbcType="VARCHAR" property="fullIndex" />
+    <result column="included_modules" jdbcType="VARCHAR" property="includedModules" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_type" jdbcType="CHAR" property="moduleType" />
+    <result column="module_level" jdbcType="CHAR" property="moduleLevel" />
+    <result column="is_leaf" jdbcType="CHAR" property="isLeaf" />
+    <result column="module_icon" jdbcType="VARCHAR" property="moduleIcon" />
+    <result column="module_order" jdbcType="INTEGER" property="moduleOrder" />
+    <result column="module_remark" jdbcType="VARCHAR" property="moduleRemark" />
+    <result column="module_url" jdbcType="VARCHAR" property="moduleUrl" />
+    <result column="query_fields" jdbcType="VARCHAR" property="queryFields" />
+    <result column="operation_options" jdbcType="VARCHAR" property="operationOptions" />
+    <result column="join_tables" jdbcType="VARCHAR" property="joinTables" />
+    <result column="join_options" jdbcType="VARCHAR" property="joinOptions" />
+    <result column="del_flg" jdbcType="CHAR" property="delFlg" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    <result column="show_fields" jdbcType="LONGVARCHAR" property="showFields" />
+    <result column="hidden_fields" jdbcType="LONGVARCHAR" property="hiddenFields" />
+    <result column="add_fields" jdbcType="LONGVARCHAR" property="addFields" />
+    <result column="modifiy_fields" jdbcType="LONGVARCHAR" property="modifiyFields" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    module_id, parent_id, full_index, included_modules, module_name, module_type, module_level, 
+    is_leaf, module_icon, module_order, module_remark, module_url, query_fields, operation_options, 
+    join_tables, join_options, del_flg, create_date, create_by, update_date, update_by
+  </sql>
+  <sql id="Blob_Column_List">
+    show_fields, hidden_fields, add_fields, modifiy_fields
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_module
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_module
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample">
+    delete from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    insert into sys_module (module_id, parent_id, full_index, 
+      included_modules, module_name, module_type, 
+      module_level, is_leaf, module_icon, 
+      module_order, module_remark, module_url, 
+      query_fields, operation_options, join_tables, 
+      join_options, del_flg, create_date, 
+      create_by, update_date, update_by, 
+      show_fields, hidden_fields, add_fields, 
+      modifiy_fields)
+    values (#{moduleId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{fullIndex,jdbcType=VARCHAR}, 
+      #{includedModules,jdbcType=VARCHAR}, #{moduleName,jdbcType=VARCHAR}, #{moduleType,jdbcType=CHAR}, 
+      #{moduleLevel,jdbcType=CHAR}, #{isLeaf,jdbcType=CHAR}, #{moduleIcon,jdbcType=VARCHAR}, 
+      #{moduleOrder,jdbcType=INTEGER}, #{moduleRemark,jdbcType=VARCHAR}, #{moduleUrl,jdbcType=VARCHAR}, 
+      #{queryFields,jdbcType=VARCHAR}, #{operationOptions,jdbcType=VARCHAR}, #{joinTables,jdbcType=VARCHAR}, 
+      #{joinOptions,jdbcType=VARCHAR}, #{delFlg,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{showFields,jdbcType=LONGVARCHAR}, #{hiddenFields,jdbcType=LONGVARCHAR}, #{addFields,jdbcType=LONGVARCHAR}, 
+      #{modifiyFields,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    insert into sys_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="fullIndex != null">
+        full_index,
+      </if>
+      <if test="includedModules != null">
+        included_modules,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="moduleLevel != null">
+        module_level,
+      </if>
+      <if test="isLeaf != null">
+        is_leaf,
+      </if>
+      <if test="moduleIcon != null">
+        module_icon,
+      </if>
+      <if test="moduleOrder != null">
+        module_order,
+      </if>
+      <if test="moduleRemark != null">
+        module_remark,
+      </if>
+      <if test="moduleUrl != null">
+        module_url,
+      </if>
+      <if test="queryFields != null">
+        query_fields,
+      </if>
+      <if test="operationOptions != null">
+        operation_options,
+      </if>
+      <if test="joinTables != null">
+        join_tables,
+      </if>
+      <if test="joinOptions != null">
+        join_options,
+      </if>
+      <if test="delFlg != null">
+        del_flg,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="showFields != null">
+        show_fields,
+      </if>
+      <if test="hiddenFields != null">
+        hidden_fields,
+      </if>
+      <if test="addFields != null">
+        add_fields,
+      </if>
+      <if test="modifiyFields != null">
+        modifiy_fields,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullIndex != null">
+        #{fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="includedModules != null">
+        #{includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=CHAR},
+      </if>
+      <if test="moduleLevel != null">
+        #{moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLeaf != null">
+        #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="moduleIcon != null">
+        #{moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        #{moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="moduleRemark != null">
+        #{moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="queryFields != null">
+        #{queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOptions != null">
+        #{operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTables != null">
+        #{joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="joinOptions != null">
+        #{joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null">
+        #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="showFields != null">
+        #{showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddenFields != null">
+        #{hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addFields != null">
+        #{addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="modifiyFields != null">
+        #{modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultType="java.lang.Integer">
+    select count(*) from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_module
+    <set>
+      <if test="record.moduleId != null">
+        module_id = #{record.moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fullIndex != null">
+        full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.includedModules != null">
+        included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleName != null">
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleType != null">
+        module_type = #{record.moduleType,jdbcType=CHAR},
+      </if>
+      <if test="record.moduleLevel != null">
+        module_level = #{record.moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.isLeaf != null">
+        is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="record.moduleIcon != null">
+        module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleOrder != null">
+        module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleRemark != null">
+        module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleUrl != null">
+        module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.queryFields != null">
+        query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationOptions != null">
+        operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinTables != null">
+        join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinOptions != null">
+        join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlg != null">
+        del_flg = #{record.delFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showFields != null">
+        show_fields = #{record.showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.hiddenFields != null">
+        hidden_fields = #{record.hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.addFields != null">
+        add_fields = #{record.addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.modifiyFields != null">
+        modifiy_fields = #{record.modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sys_module
+    set module_id = #{record.moduleId,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=CHAR},
+      module_level = #{record.moduleLevel,jdbcType=CHAR},
+      is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      del_flg = #{record.delFlg,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      show_fields = #{record.showFields,jdbcType=LONGVARCHAR},
+      hidden_fields = #{record.hiddenFields,jdbcType=LONGVARCHAR},
+      add_fields = #{record.addFields,jdbcType=LONGVARCHAR},
+      modifiy_fields = #{record.modifiyFields,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_module
+    set module_id = #{record.moduleId,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=CHAR},
+      module_level = #{record.moduleLevel,jdbcType=CHAR},
+      is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      del_flg = #{record.delFlg,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    update sys_module
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullIndex != null">
+        full_index = #{fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="includedModules != null">
+        included_modules = #{includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=CHAR},
+      </if>
+      <if test="moduleLevel != null">
+        module_level = #{moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLeaf != null">
+        is_leaf = #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="moduleIcon != null">
+        module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        module_order = #{moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="moduleRemark != null">
+        module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        module_url = #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="queryFields != null">
+        query_fields = #{queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOptions != null">
+        operation_options = #{operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTables != null">
+        join_tables = #{joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="joinOptions != null">
+        join_options = #{joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null">
+        del_flg = #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="showFields != null">
+        show_fields = #{showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddenFields != null">
+        hidden_fields = #{hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addFields != null">
+        add_fields = #{addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="modifiyFields != null">
+        modifiy_fields = #{modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    update sys_module
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      full_index = #{fullIndex,jdbcType=VARCHAR},
+      included_modules = #{includedModules,jdbcType=VARCHAR},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=CHAR},
+      module_level = #{moduleLevel,jdbcType=CHAR},
+      is_leaf = #{isLeaf,jdbcType=CHAR},
+      module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      module_order = #{moduleOrder,jdbcType=INTEGER},
+      module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      module_url = #{moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{queryFields,jdbcType=VARCHAR},
+      operation_options = #{operationOptions,jdbcType=VARCHAR},
+      join_tables = #{joinTables,jdbcType=VARCHAR},
+      join_options = #{joinOptions,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      show_fields = #{showFields,jdbcType=LONGVARCHAR},
+      hidden_fields = #{hiddenFields,jdbcType=LONGVARCHAR},
+      add_fields = #{addFields,jdbcType=LONGVARCHAR},
+      modifiy_fields = #{modifiyFields,jdbcType=LONGVARCHAR}
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shen.autocoding.engine.model.SysModule">
+    update sys_module
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      full_index = #{fullIndex,jdbcType=VARCHAR},
+      included_modules = #{includedModules,jdbcType=VARCHAR},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=CHAR},
+      module_level = #{moduleLevel,jdbcType=CHAR},
+      is_leaf = #{isLeaf,jdbcType=CHAR},
+      module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      module_order = #{moduleOrder,jdbcType=INTEGER},
+      module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      module_url = #{moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{queryFields,jdbcType=VARCHAR},
+      operation_options = #{operationOptions,jdbcType=VARCHAR},
+      join_tables = #{joinTables,jdbcType=VARCHAR},
+      join_options = #{joinOptions,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.shen.autocoding.engine.model.SysModule">
+    <id column="module_id" jdbcType="VARCHAR" property="moduleId" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="full_index" jdbcType="VARCHAR" property="fullIndex" />
+    <result column="included_modules" jdbcType="VARCHAR" property="includedModules" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_type" jdbcType="CHAR" property="moduleType" />
+    <result column="module_level" jdbcType="CHAR" property="moduleLevel" />
+    <result column="is_leaf" jdbcType="CHAR" property="isLeaf" />
+    <result column="module_icon" jdbcType="VARCHAR" property="moduleIcon" />
+    <result column="module_order" jdbcType="INTEGER" property="moduleOrder" />
+    <result column="module_remark" jdbcType="VARCHAR" property="moduleRemark" />
+    <result column="module_url" jdbcType="VARCHAR" property="moduleUrl" />
+    <result column="query_fields" jdbcType="VARCHAR" property="queryFields" />
+    <result column="operation_options" jdbcType="VARCHAR" property="operationOptions" />
+    <result column="join_tables" jdbcType="VARCHAR" property="joinTables" />
+    <result column="join_options" jdbcType="VARCHAR" property="joinOptions" />
+    <result column="del_flg" jdbcType="CHAR" property="delFlg" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    <result column="show_fields" jdbcType="LONGVARCHAR" property="showFields" />
+    <result column="hidden_fields" jdbcType="LONGVARCHAR" property="hiddenFields" />
+    <result column="add_fields" jdbcType="LONGVARCHAR" property="addFields" />
+    <result column="modifiy_fields" jdbcType="LONGVARCHAR" property="modifiyFields" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    module_id, parent_id, full_index, included_modules, module_name, module_type, module_level, 
+    is_leaf, module_icon, module_order, module_remark, module_url, query_fields, operation_options, 
+    join_tables, join_options, del_flg, create_date, create_by, update_date, update_by
+  </sql>
+  <sql id="Blob_Column_List">
+    show_fields, hidden_fields, add_fields, modifiy_fields
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_module
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_module
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample">
+    delete from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    insert into sys_module (module_id, parent_id, full_index, 
+      included_modules, module_name, module_type, 
+      module_level, is_leaf, module_icon, 
+      module_order, module_remark, module_url, 
+      query_fields, operation_options, join_tables, 
+      join_options, del_flg, create_date, 
+      create_by, update_date, update_by, 
+      show_fields, hidden_fields, add_fields, 
+      modifiy_fields)
+    values (#{moduleId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{fullIndex,jdbcType=VARCHAR}, 
+      #{includedModules,jdbcType=VARCHAR}, #{moduleName,jdbcType=VARCHAR}, #{moduleType,jdbcType=CHAR}, 
+      #{moduleLevel,jdbcType=CHAR}, #{isLeaf,jdbcType=CHAR}, #{moduleIcon,jdbcType=VARCHAR}, 
+      #{moduleOrder,jdbcType=INTEGER}, #{moduleRemark,jdbcType=VARCHAR}, #{moduleUrl,jdbcType=VARCHAR}, 
+      #{queryFields,jdbcType=VARCHAR}, #{operationOptions,jdbcType=VARCHAR}, #{joinTables,jdbcType=VARCHAR}, 
+      #{joinOptions,jdbcType=VARCHAR}, #{delFlg,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{showFields,jdbcType=LONGVARCHAR}, #{hiddenFields,jdbcType=LONGVARCHAR}, #{addFields,jdbcType=LONGVARCHAR}, 
+      #{modifiyFields,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    insert into sys_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="fullIndex != null">
+        full_index,
+      </if>
+      <if test="includedModules != null">
+        included_modules,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="moduleLevel != null">
+        module_level,
+      </if>
+      <if test="isLeaf != null">
+        is_leaf,
+      </if>
+      <if test="moduleIcon != null">
+        module_icon,
+      </if>
+      <if test="moduleOrder != null">
+        module_order,
+      </if>
+      <if test="moduleRemark != null">
+        module_remark,
+      </if>
+      <if test="moduleUrl != null">
+        module_url,
+      </if>
+      <if test="queryFields != null">
+        query_fields,
+      </if>
+      <if test="operationOptions != null">
+        operation_options,
+      </if>
+      <if test="joinTables != null">
+        join_tables,
+      </if>
+      <if test="joinOptions != null">
+        join_options,
+      </if>
+      <if test="delFlg != null">
+        del_flg,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="showFields != null">
+        show_fields,
+      </if>
+      <if test="hiddenFields != null">
+        hidden_fields,
+      </if>
+      <if test="addFields != null">
+        add_fields,
+      </if>
+      <if test="modifiyFields != null">
+        modifiy_fields,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullIndex != null">
+        #{fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="includedModules != null">
+        #{includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=CHAR},
+      </if>
+      <if test="moduleLevel != null">
+        #{moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLeaf != null">
+        #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="moduleIcon != null">
+        #{moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        #{moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="moduleRemark != null">
+        #{moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="queryFields != null">
+        #{queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOptions != null">
+        #{operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTables != null">
+        #{joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="joinOptions != null">
+        #{joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null">
+        #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="showFields != null">
+        #{showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddenFields != null">
+        #{hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addFields != null">
+        #{addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="modifiyFields != null">
+        #{modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shen.autocoding.engine.model.SysModuleExample" resultType="java.lang.Integer">
+    select count(*) from sys_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_module
+    <set>
+      <if test="record.moduleId != null">
+        module_id = #{record.moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fullIndex != null">
+        full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.includedModules != null">
+        included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleName != null">
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleType != null">
+        module_type = #{record.moduleType,jdbcType=CHAR},
+      </if>
+      <if test="record.moduleLevel != null">
+        module_level = #{record.moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.isLeaf != null">
+        is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="record.moduleIcon != null">
+        module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleOrder != null">
+        module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleRemark != null">
+        module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleUrl != null">
+        module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.queryFields != null">
+        query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationOptions != null">
+        operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinTables != null">
+        join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinOptions != null">
+        join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlg != null">
+        del_flg = #{record.delFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showFields != null">
+        show_fields = #{record.showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.hiddenFields != null">
+        hidden_fields = #{record.hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.addFields != null">
+        add_fields = #{record.addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.modifiyFields != null">
+        modifiy_fields = #{record.modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sys_module
+    set module_id = #{record.moduleId,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=CHAR},
+      module_level = #{record.moduleLevel,jdbcType=CHAR},
+      is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      del_flg = #{record.delFlg,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      show_fields = #{record.showFields,jdbcType=LONGVARCHAR},
+      hidden_fields = #{record.hiddenFields,jdbcType=LONGVARCHAR},
+      add_fields = #{record.addFields,jdbcType=LONGVARCHAR},
+      modifiy_fields = #{record.modifiyFields,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_module
+    set module_id = #{record.moduleId,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      full_index = #{record.fullIndex,jdbcType=VARCHAR},
+      included_modules = #{record.includedModules,jdbcType=VARCHAR},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_type = #{record.moduleType,jdbcType=CHAR},
+      module_level = #{record.moduleLevel,jdbcType=CHAR},
+      is_leaf = #{record.isLeaf,jdbcType=CHAR},
+      module_icon = #{record.moduleIcon,jdbcType=VARCHAR},
+      module_order = #{record.moduleOrder,jdbcType=INTEGER},
+      module_remark = #{record.moduleRemark,jdbcType=VARCHAR},
+      module_url = #{record.moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{record.queryFields,jdbcType=VARCHAR},
+      operation_options = #{record.operationOptions,jdbcType=VARCHAR},
+      join_tables = #{record.joinTables,jdbcType=VARCHAR},
+      join_options = #{record.joinOptions,jdbcType=VARCHAR},
+      del_flg = #{record.delFlg,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    update sys_module
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullIndex != null">
+        full_index = #{fullIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="includedModules != null">
+        included_modules = #{includedModules,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=CHAR},
+      </if>
+      <if test="moduleLevel != null">
+        module_level = #{moduleLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLeaf != null">
+        is_leaf = #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="moduleIcon != null">
+        module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        module_order = #{moduleOrder,jdbcType=INTEGER},
+      </if>
+      <if test="moduleRemark != null">
+        module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        module_url = #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="queryFields != null">
+        query_fields = #{queryFields,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOptions != null">
+        operation_options = #{operationOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTables != null">
+        join_tables = #{joinTables,jdbcType=VARCHAR},
+      </if>
+      <if test="joinOptions != null">
+        join_options = #{joinOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null">
+        del_flg = #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="showFields != null">
+        show_fields = #{showFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hiddenFields != null">
+        hidden_fields = #{hiddenFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addFields != null">
+        add_fields = #{addFields,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="modifiyFields != null">
+        modifiy_fields = #{modifiyFields,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shen.autocoding.engine.model.SysModuleWithBLOBs">
+    update sys_module
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      full_index = #{fullIndex,jdbcType=VARCHAR},
+      included_modules = #{includedModules,jdbcType=VARCHAR},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=CHAR},
+      module_level = #{moduleLevel,jdbcType=CHAR},
+      is_leaf = #{isLeaf,jdbcType=CHAR},
+      module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      module_order = #{moduleOrder,jdbcType=INTEGER},
+      module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      module_url = #{moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{queryFields,jdbcType=VARCHAR},
+      operation_options = #{operationOptions,jdbcType=VARCHAR},
+      join_tables = #{joinTables,jdbcType=VARCHAR},
+      join_options = #{joinOptions,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      show_fields = #{showFields,jdbcType=LONGVARCHAR},
+      hidden_fields = #{hiddenFields,jdbcType=LONGVARCHAR},
+      add_fields = #{addFields,jdbcType=LONGVARCHAR},
+      modifiy_fields = #{modifiyFields,jdbcType=LONGVARCHAR}
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shen.autocoding.engine.model.SysModule">
+    update sys_module
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      full_index = #{fullIndex,jdbcType=VARCHAR},
+      included_modules = #{includedModules,jdbcType=VARCHAR},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=CHAR},
+      module_level = #{moduleLevel,jdbcType=CHAR},
+      is_leaf = #{isLeaf,jdbcType=CHAR},
+      module_icon = #{moduleIcon,jdbcType=VARCHAR},
+      module_order = #{moduleOrder,jdbcType=INTEGER},
+      module_remark = #{moduleRemark,jdbcType=VARCHAR},
+      module_url = #{moduleUrl,jdbcType=VARCHAR},
+      query_fields = #{queryFields,jdbcType=VARCHAR},
+      operation_options = #{operationOptions,jdbcType=VARCHAR},
+      join_tables = #{joinTables,jdbcType=VARCHAR},
+      join_options = #{joinOptions,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where module_id = #{moduleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

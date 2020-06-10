@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="test_gen:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>test_gen</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="gen.war">
+      <element id="artifact" artifact-name="test_gen:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shen.autocoding.engine.mapper.SysRoleModuleMapper">
+  <resultMap id="BaseResultMap" type="com.shen.autocoding.engine.model.SysRoleModule">
+    <id column="role_module_id" jdbcType="VARCHAR" property="roleModuleId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="module_id" jdbcType="VARCHAR" property="moduleId" />
+    <result column="module_tree" jdbcType="VARCHAR" property="moduleTree" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    role_module_id, role_id, module_id, module_tree
+  </sql>
+  <select id="selectByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_module
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_role_module
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample">
+    delete from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    insert into sys_role_module (role_module_id, role_id, module_id, 
+      module_tree)
+    values (#{roleModuleId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{moduleId,jdbcType=VARCHAR}, 
+      #{moduleTree,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    insert into sys_role_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleModuleId != null">
+        role_module_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="moduleTree != null">
+        module_tree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleModuleId != null">
+        #{roleModuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTree != null">
+        #{moduleTree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample" resultType="java.lang.Integer">
+    select count(*) from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_role_module
+    <set>
+      <if test="record.roleModuleId != null">
+        role_module_id = #{record.roleModuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleId != null">
+        module_id = #{record.moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleTree != null">
+        module_tree = #{record.moduleTree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_role_module
+    set role_module_id = #{record.roleModuleId,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      module_id = #{record.moduleId,jdbcType=VARCHAR},
+      module_tree = #{record.moduleTree,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    update sys_role_module
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTree != null">
+        module_tree = #{moduleTree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    update sys_role_module
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      module_id = #{moduleId,jdbcType=VARCHAR},
+      module_tree = #{moduleTree,jdbcType=VARCHAR}
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.shen.autocoding.engine.model.SysRoleModule">
+    <id column="role_module_id" jdbcType="VARCHAR" property="roleModuleId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="module_id" jdbcType="VARCHAR" property="moduleId" />
+    <result column="module_tree" jdbcType="VARCHAR" property="moduleTree" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    role_module_id, role_id, module_id, module_tree
+  </sql>
+  <select id="selectByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_module
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_role_module
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample">
+    delete from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    insert into sys_role_module (role_module_id, role_id, module_id, 
+      module_tree)
+    values (#{roleModuleId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{moduleId,jdbcType=VARCHAR}, 
+      #{moduleTree,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    insert into sys_role_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleModuleId != null">
+        role_module_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="moduleTree != null">
+        module_tree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleModuleId != null">
+        #{roleModuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTree != null">
+        #{moduleTree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample" resultType="java.lang.Integer">
+    select count(*) from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_role_module
+    <set>
+      <if test="record.roleModuleId != null">
+        role_module_id = #{record.roleModuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleId != null">
+        module_id = #{record.moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleTree != null">
+        module_tree = #{record.moduleTree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_role_module
+    set role_module_id = #{record.roleModuleId,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      module_id = #{record.moduleId,jdbcType=VARCHAR},
+      module_tree = #{record.moduleTree,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    update sys_role_module
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTree != null">
+        module_tree = #{moduleTree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    update sys_role_module
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      module_id = #{moduleId,jdbcType=VARCHAR},
+      module_tree = #{moduleTree,jdbcType=VARCHAR}
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.shen.autocoding.engine.model.SysRoleModule">
+    <id column="role_module_id" jdbcType="VARCHAR" property="roleModuleId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="module_id" jdbcType="VARCHAR" property="moduleId" />
+    <result column="module_tree" jdbcType="VARCHAR" property="moduleTree" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    role_module_id, role_id, module_id, module_tree
+  </sql>
+  <select id="selectByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_module
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_role_module
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample">
+    delete from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    insert into sys_role_module (role_module_id, role_id, module_id, 
+      module_tree)
+    values (#{roleModuleId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{moduleId,jdbcType=VARCHAR}, 
+      #{moduleTree,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    insert into sys_role_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleModuleId != null">
+        role_module_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="moduleTree != null">
+        module_tree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleModuleId != null">
+        #{roleModuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTree != null">
+        #{moduleTree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shen.autocoding.engine.model.SysRoleModuleExample" resultType="java.lang.Integer">
+    select count(*) from sys_role_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_role_module
+    <set>
+      <if test="record.roleModuleId != null">
+        role_module_id = #{record.roleModuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleId != null">
+        module_id = #{record.moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleTree != null">
+        module_tree = #{record.moduleTree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_role_module
+    set role_module_id = #{record.roleModuleId,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      module_id = #{record.moduleId,jdbcType=VARCHAR},
+      module_tree = #{record.moduleTree,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    update sys_role_module
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTree != null">
+        module_tree = #{moduleTree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shen.autocoding.engine.model.SysRoleModule">
+    update sys_role_module
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      module_id = #{moduleId,jdbcType=VARCHAR},
+      module_tree = #{moduleTree,jdbcType=VARCHAR}
+    where role_module_id = #{roleModuleId,jdbcType=VARCHAR}
+  </update>
+</mapper>
